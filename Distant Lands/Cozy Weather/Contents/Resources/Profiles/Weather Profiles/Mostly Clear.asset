@@ -35,4 +35,5 @@ MonoBehaviour:
     borderVariation: 0.9
     borderEffect: 1
   fogDensity: 1
-  FX: []
+  FX:
+  - {fileID: 11400000, guid: 151a7e108d46feb488574c3a17f52cdc, type: 2}

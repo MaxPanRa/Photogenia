@@ -35,13 +35,13 @@ public class Character_Camera : MonoBehaviour
     {
         if (((Input.GetKey(KeyCode.Mouse0) || Input.GetKeyDown("joystick button 5")) && !isPhotoing) || repeatRays)
         {
-            CameraReader();
-            TakeScreenshot();
+            string filename = TakeScreenshot();
+            CameraReader(filename);
             isPhotoing = true;
         }
     }
 
-    void CameraReader()
+    void CameraReader(string fileName)
     {
         Vector3 pf = cameraObject.forward;
         Vector3[,] rays = new Vector3[raysCount, raysCount];
@@ -137,7 +137,7 @@ public class Character_Camera : MonoBehaviour
         isPhotoing = false;
     }
 
-    void TakeScreenshot()
+    string TakeScreenshot()
     {
         if (!Directory.Exists(screenshotPath))
         {
@@ -149,17 +149,12 @@ public class Character_Camera : MonoBehaviour
         {
             canva.enabled = false;
         }
-
-
         // Take the screenshot
         long milliseconds = System.DateTime.Now.Ticks / System.TimeSpan.TicksPerMillisecond;
         string date = milliseconds.ToString();
         string fileName = screenshotPath + date+"_"+ screenshotName + ".jpg";
         StartCoroutine(TakeScreenShot(fileName,canvas));
-        
-
-
-        
+        return fileName;
     }
     IEnumerator TakeScreenShot(string fileN, Canvas[] canvas)
     {
